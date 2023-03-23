@@ -1,0 +1,14 @@
+Code,Type,Value,"Applied On",Status
+0001,Percentage,10,All,ACTIVE
+0002,Percentage,20,Club,ACTIVE
+0003,Percentage,30,Product,ACTIVE
+0004,Fixed,10,All,ACTIVE
+0005,Fixed,20,Club,ACTIVE
+0006,Fixed,30,Product,ACTIVE
+0008,Fixed,30,All,INACTIVE
+0004545,Percentage,2,All,INACTIVE
+1234,Fixed,2,All,INACTIVE
+fdsf,Fixed,2,Product,ACTIVE
+1212,Percentage,10,Club,ACTIVE
+546456,Percentage,22545,Product,ACTIVE
+4555,Fixed,2,All,ACTIVE
