@@ -1,6 +1,5 @@
 @extends('layouts.client')
 @section('content')
-@can('attendance_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('teacher.attendances.create') }}">
@@ -8,7 +7,6 @@
             </a>
         </div>
     </div>
-@endcan
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.attendance.title_singular') }} {{ trans('global.list') }}
@@ -82,11 +80,10 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('attendance_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.attendances.massDestroy') }}",
+    url: "{{ route('teacher.attendances.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -110,7 +107,7 @@
     }
   }
   dtButtons.push(deleteButton)
-@endcan
+
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,

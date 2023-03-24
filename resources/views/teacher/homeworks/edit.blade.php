@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.client')
 @section('content')
 
 <div class="card">
@@ -7,15 +7,13 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.homeworks.update", [$homework->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("teacher.homeworks.update", [$homework->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
                 <label class="required" for="teacher_id">{{ trans('cruds.homework.fields.teacher') }}</label>
-                <select class="form-control select2 {{ $errors->has('teacher') ? 'is-invalid' : '' }}" name="teacher_id" id="teacher_id" required>
-                    @foreach($teachers as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('teacher_id') ? old('teacher_id') : $homework->teacher->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
+                <select class="form-control  {{ $errors->has('teacher') ? 'is-invalid' : '' }}" name="teacher_id" id="teacher_id" required  readonly="readonly">
+                    <option value="{{  auth("client")->id() }}" selected >{{  auth("client")->user()->name }}</option>
                 </select>
                 @if($errors->has('teacher'))
                     <div class="invalid-feedback">
@@ -87,7 +85,7 @@
 <script>
     var uploadedAttachmentMap = {}
 Dropzone.options.attachmentDropzone = {
-    url: '{{ route('admin.homeworks.storeMedia') }}',
+    url: '{{ route('teacher.homeworks.storeMedia') }}',
     maxFilesize: 20, // MB
     addRemoveLinks: true,
     headers: {
@@ -111,7 +109,7 @@ Dropzone.options.attachmentDropzone = {
       $('form').find('input[name="attachment[]"][value="' + name + '"]').remove()
     },
     init: function () {
-@if(isset($homework) && $homework->attachment)
+        @if(isset($homework) && $homework->attachment)
           var files =
             {!! json_encode($homework->attachment) !!}
               for (var i in files) {
@@ -120,7 +118,7 @@ Dropzone.options.attachmentDropzone = {
               file.previewElement.classList.add('dz-complete')
               $('form').append('<input type="hidden" name="attachment[]" value="' + file.file_name + '">')
             }
-@endif
+        @endif
     },
      error: function (file, response) {
          if ($.type(response) === 'string') {

@@ -11,7 +11,9 @@ class UpdateHomeworkRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('homework_edit');
+        return auth('client')->check()? true : Gate::allows('homework_edit');
+
+        // return Gate::allows('homework_edit');
     }
 
     public function rules()

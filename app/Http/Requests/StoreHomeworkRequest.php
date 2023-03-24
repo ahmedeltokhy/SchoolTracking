@@ -11,7 +11,7 @@ class StoreHomeworkRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('homework_create');
+        return auth('client')->check()? true : Gate::allows('homework_create');
     }
 
     public function rules()

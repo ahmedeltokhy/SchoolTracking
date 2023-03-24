@@ -69,7 +69,6 @@ class AttendanceController extends Controller
         // $teachers = Client::where("type","teacher")->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
         $student_attendance=$attendance->students()->wherePivot("status",1)->pluck("clients.id")->toArray();
         $attendance->load('classsection', 'teacher');
-
         return view('teacher.attendance.form', compact('attendance','student_attendance', 'classsections'));
     }
 
@@ -86,34 +85,30 @@ class AttendanceController extends Controller
         $attendance=auth("client")->user()->attendances()->where("attendances.id",$attendance_id)->firstOrFail();
         $attendance->update($data);
         $this->sync_student_attendance($request,$attendance);
-
         return redirect()->route('teacher.attendances.index');
     }
 
     public function show(Attendance $attendance)
     {
-
         $attendance->load('classsection', 'teacher');
-
         return view('teacher.attendance.show', compact('attendance'));
     }
 
-    public function destroy(Attendance $attendance)
+    public function destroy( $attendance_id)
     {
-
+        $attendance=auth("client")->user()->attendances()->where("attendances.id",$attendance_id)->firstOrFail();
+        $attendance->students()->detach();
         $attendance->delete();
-
         return back();
     }
 
-    public function massDestroy(MassDestroyAttendanceRequest $request)
+    public function massDestroy(Request $request)
     {
-        $attendances = Attendance::find(request('ids'));
-
+        $attendances=auth("client")->user()->attendances()->whereIn("attendances.id",request('ids'))->get();
         foreach ($attendances as $attendance) {
+        $attendance->students()->detach();
             $attendance->delete();
         }
-
         return response(null, Response::HTTP_NO_CONTENT);
     }
    

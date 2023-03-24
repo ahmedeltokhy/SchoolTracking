@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label for="content">{{ trans('cruds.homework.fields.content') }}</label>
-                <input class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" type="text" name="content" id="content" value="{{ old('content', '') }}">
+                <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="content">{{ old('content') }}</textarea>
                 @if($errors->has('content'))
                     <div class="invalid-feedback">
                         {{ $errors->first('content') }}

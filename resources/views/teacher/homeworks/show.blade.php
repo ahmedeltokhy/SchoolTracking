@@ -1,15 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.client')
 @section('content')
 
 <div class="card">
     <div class="card-header">
         {{ trans('global.show') }} {{ trans('cruds.homework.title') }}
     </div>
-
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.homeworks.index') }}">
+                <a class="btn btn-default" href="{{ route('teacher.homeworks.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -70,14 +69,11 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.homeworks.index') }}">
+                <a class="btn btn-default" href="{{ route('teacher.homeworks.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
         </div>
     </div>
 </div>
-
-
-
 @endsection

@@ -1,21 +1,18 @@
-@extends('layouts.admin')
+@extends('layouts.client')
 @section('content')
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.edit') }} {{ trans('cruds.homework.title_singular') }}
+        {{ trans('global.create') }} {{ trans('cruds.homework.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.homeworks.update", [$homework->id]) }}" enctype="multipart/form-data">
-            @method('PUT')
+        <form method="POST" action="{{ route("teacher.homeworks.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="teacher_id">{{ trans('cruds.homework.fields.teacher') }}</label>
-                <select class="form-control select2 {{ $errors->has('teacher') ? 'is-invalid' : '' }}" name="teacher_id" id="teacher_id" required>
-                    @foreach($teachers as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('teacher_id') ? old('teacher_id') : $homework->teacher->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
+                <select class="form-control  {{ $errors->has('teacher') ? 'is-invalid' : '' }}" name="teacher_id" id="teacher_id" required readonly="readonly">
+                    <option value="{{  auth("client")->id() }}" selected >{{  auth("client")->user()->name }}</option>
                 </select>
                 @if($errors->has('teacher'))
                     <div class="invalid-feedback">
@@ -26,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label class="required" for="title">{{ trans('cruds.homework.fields.title') }}</label>
-                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $homework->title) }}" required>
+                <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}" required>
                 @if($errors->has('title'))
                     <div class="invalid-feedback">
                         {{ $errors->first('title') }}
@@ -36,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label for="content">{{ trans('cruds.homework.fields.content') }}</label>
-                <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="content">{{ old('content', $homework->content) }}</textarea>
+                <textarea class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="content">{{ old('content') }}</textarea>
                 @if($errors->has('content'))
                     <div class="invalid-feedback">
                         {{ $errors->first('content') }}
@@ -44,12 +41,11 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.homework.fields.content_helper') }}</span>
             </div>
-
             <div class="form-group">
                 <label class="required" for="class_section_id">{{ trans('cruds.homework.fields.class_section') }}</label>
                 <select class="form-control select2 {{ $errors->has('class_section') ? 'is-invalid' : '' }}" name="class_section_id" id="class_section_id" required>
                     @foreach($class_sections as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('class_section_id') ? old('class_section_id') : $homework->class_section->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        <option value="{{ $id }}" {{ old('class_section_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('class_section'))
@@ -87,7 +83,7 @@
 <script>
     var uploadedAttachmentMap = {}
 Dropzone.options.attachmentDropzone = {
-    url: '{{ route('admin.homeworks.storeMedia') }}',
+    url: '{{ route('teacher.homeworks.storeMedia') }}',
     maxFilesize: 20, // MB
     addRemoveLinks: true,
     headers: {
