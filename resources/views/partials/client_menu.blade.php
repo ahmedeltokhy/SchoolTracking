@@ -41,6 +41,15 @@
                 </a>
             </li>
         @endif
+        @if(auth('client')->user()->type=="student")
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route('student.list_sections') }}" class="c-sidebar-nav-link {{ request()->is("list_sections") || request()->is("section/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-book c-sidebar-nav-icon"></i>
+                    {{ trans('cruds.classSection.title') }}
+                </a>
+            </li>
+        @endif
+
         <li class="c-sidebar-nav-item">
             <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">

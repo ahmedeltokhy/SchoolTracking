@@ -90,8 +90,8 @@ Route::group(['namespace' => 'Client'], function () {
             Route::get('/home','HomeController@index')->name('home');
         });
     });
-    Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['auth.client']], function () {
-        Route::group(['namespace' => 'Teacher', 'middleware' => ['is_teacher']], function () {
+    Route::group([ 'middleware' => ['auth.client']], function () {
+        Route::group(['prefix' => 'teacher', 'as' => 'teacher.','namespace' => 'Teacher', 'middleware' => ['is_teacher']], function () {
             Route::get('/list_sections','TeacherController@list_sections')->name('list_sections');
             Route::get('/section/{id}/view','TeacherController@view_section')->name('view_section');
             
@@ -106,8 +106,13 @@ Route::group(['namespace' => 'Client'], function () {
             Route::post('homeworks/media', 'HomeworkController@storeMedia')->name('homeworks.storeMedia');
             Route::post('homeworks/ckmedia', 'HomeworkController@storeCKEditorImages')->name('homeworks.storeCKEditorImages');
             Route::resource('homeworks', 'HomeworkController'); 
-            });
         });
+        Route::group(['prefix' => 'student', 'as' => 'student.','namespace' => 'Student', 'middleware' => ['is_student']], function () {
+            Route::get('/list_sections','StudentController@list_sections')->name('list_sections');
+            Route::get('/section/{id}/view','StudentController@view_section')->name('view_section');    
+            Route::get('/classsection/{id}/homeworks','StudentController@homeworks')->name('classsection.homeworks');    
+        });
+    });
     
     
 });

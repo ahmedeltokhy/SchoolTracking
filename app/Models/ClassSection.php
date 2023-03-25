@@ -37,10 +37,10 @@ class ClassSection extends Model
     {
         return $this->belongsTo(Client::class, 'teacher_id');
     }
-    // public function today_attendance()
-    // {
-    //     return $this->HasMany(Client::class, 'teacher_id');
-    // }
+    public function homeworks()
+    {
+        return $this->HasMany(Homework::class, 'class_section_id');
+    }
 
     public function students()
     {

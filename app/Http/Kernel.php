@@ -29,6 +29,9 @@ class Kernel extends HttpKernel
         'auth.client'     => \App\Http\Middleware\AuthClient::class,
 		'auth.admin'     => \App\Http\Middleware\AuthAdmin::class,
 		'is_teacher'     => \App\Http\Middleware\IsTeacher::class,
+		'is_student'     => \App\Http\Middleware\IsStudent::class,
+		'is_parent'     => \App\Http\Middleware\IsParent::class,
+		'is_driver'     => \App\Http\Middleware\IsDriver::class,
     ];
 
     protected $middlewareGroups = [
