@@ -61,4 +61,8 @@ class Homework extends Model implements HasMedia
     {
         return $this->getMedia('attachment');
     }
+    public function solutions()
+    {
+        return $this->HasMany(HomeworkSolution::class, 'homework_id');
+    }
 }

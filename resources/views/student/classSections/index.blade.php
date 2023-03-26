@@ -55,7 +55,7 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('student.view_section', $classSection->id) }}">
                                         {{ trans('global.view') }}
                                 </a>
-                                <a class="btn btn-xs btn-sacondry" href="{{ route('student.classsection.homeworks', $classSection->id) }}">
+                                <a class="btn btn-xs btn-warning" href="{{ route('student.classsection.homeworks', $classSection->id) }}">
                                         {{ trans('global.homeworks') }}
                                 </a>
                                

@@ -106,11 +106,26 @@ Route::group(['namespace' => 'Client'], function () {
             Route::post('homeworks/media', 'HomeworkController@storeMedia')->name('homeworks.storeMedia');
             Route::post('homeworks/ckmedia', 'HomeworkController@storeCKEditorImages')->name('homeworks.storeCKEditorImages');
             Route::resource('homeworks', 'HomeworkController'); 
+
+
         });
         Route::group(['prefix' => 'student', 'as' => 'student.','namespace' => 'Student', 'middleware' => ['is_student']], function () {
             Route::get('/list_sections','StudentController@list_sections')->name('list_sections');
             Route::get('/section/{id}/view','StudentController@view_section')->name('view_section');    
-            Route::get('/classsection/{id}/homeworks','StudentController@homeworks')->name('classsection.homeworks');    
+            Route::get('/classsection/{id}/homeworks','HomeworkController@classsection_homeworks')->name('classsection.homeworks');    
+            Route::get('/homeworks/{id}/view','HomeworkController@view')->name('homeworks.show');    
+            Route::get('/homeworks/index','HomeworkController@index')->name('homeworks.index');
+
+             // Homework Solution
+            Route::delete('homework-solutions/destroy', 'HomeworkSolutionController@massDestroy')->name('homework-solutions.massDestroy');
+            Route::post('homework-solutions/media', 'HomeworkSolutionController@storeMedia')->name('homework-solutions.storeMedia');
+            Route::post('homework-solutions/ckmedia', 'HomeworkSolutionController@storeCKEditorImages')->name('homework-solutions.storeCKEditorImages');
+            Route::get('/homeworks/{id}/my_solutions','HomeworkSolutionController@my_solutions')->name('my_solutions');
+            Route::get('/homework-solutions/index','HomeworkSolutionController@index')->name('solution.index');
+            Route::get('/homeworks/{id}/add_solution','HomeworkSolutionController@create')->name('solution.create');
+            Route::POST('/homeworks/solution/{id}/form','HomeworkSolutionController@form')->name('solution.form');
+            Route::get('/homeworks/solution/{id}/show','HomeworkSolutionController@show')->name('solution.show');
+
         });
     });
     

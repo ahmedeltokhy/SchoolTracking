@@ -324,5 +324,7 @@ return [
     'messenger'                      => 'مراسل',
     'add_attendance'                      => 'اضافه حضور',
     'assign_homework'                      => ' اضافه واجب',
+    'homeworks'                      => 'الواجبات',
+    'add_solution'                      => ' اضافه واجب',
 
 ];

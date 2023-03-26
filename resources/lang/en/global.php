@@ -324,6 +324,8 @@ return [
     'messenger'                      => 'Messenger',
     'add_attendance'                      => 'Add Attendance',
     'assign_homework'                      => 'Assign Homework',
+    'homeworks'                      => 'Homework',
+    'add_solution'                      => 'Add solution',
 
 
 ];

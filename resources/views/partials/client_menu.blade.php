@@ -48,6 +48,22 @@
                     {{ trans('cruds.classSection.title') }}
                 </a>
             </li>
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("student.homeworks.index") }}" class="c-sidebar-nav-link {{ request()->is("student/homeworks") || request()->is("homeworks/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-align-left c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.homework.title') }}
+                </a>
+            </li>
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("student.solution.index") }}" class="c-sidebar-nav-link {{ request()->is("student/homework-solutions") || request()->is("homework-solutions/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-align-left c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.homeworkSolution.title') }}
+                </a>
+            </li>
         @endif
 
         <li class="c-sidebar-nav-item">

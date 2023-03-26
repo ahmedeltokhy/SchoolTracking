@@ -19,13 +19,5 @@ class StudentController extends Controller
         })->firstOrFail();
         return view('student.classSections.show', compact('classSection'));
     }
-    public function homeworks($id){
-        $classsection = ClassSection::where(["id"=>$id])->whereHas("students",function($q){
-            $q->where("id",auth('client')->id());
-        })->firstOrFail();
-        if(empty($classSection)){
-            abort(403, 'Access denied');
-        }
-        $homeworks=$classsection->homeworks;
-    }
+    
 }
