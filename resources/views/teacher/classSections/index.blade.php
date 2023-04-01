@@ -61,6 +61,9 @@
                                 <a class="btn btn-xs btn-success" href="{{ route('teacher.homeworks.create', ['classsection'=>$classSection->id]) }}">
                                         {{ trans('global.assign_homework') }}
                                 </a>
+                                <a class="btn btn-xs btn-success" href="{{ route('teacher.classsection.list_students', ['id'=>$classSection->id]) }}">
+                                        {{ trans('global.list_students') }}
+                                </a>
                                 
 
                             </td>

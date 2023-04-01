@@ -34,8 +34,12 @@
                         <th>
                             {{ trans('cruds.homework.fields.content') }}
                         </th>
+                       
                         <th>
                             {{ trans('cruds.homework.fields.class_section') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.homework.fields.created_at') }}
                         </th>
                         <th>
                             &nbsp;
@@ -62,6 +66,9 @@
                             </td>
                             <td>
                                 {{ $homework->class_section->subject ?? '' }}
+                            </td>
+                            <td>
+                                {{ $homework->created_at ?? '' }}
                             </td>
                             <td>
                                 <a class="btn btn-xs btn-primary" href="{{ route('student.homeworks.show', $homework->id) }}">

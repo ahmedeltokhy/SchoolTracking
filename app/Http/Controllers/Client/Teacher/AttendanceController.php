@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use auth;
-use App\Models\{ClassSection,Attendance};
+use App\Models\{ClassSection,Attendance,Message};
 use App\Http\Requests\MassDestroyAttendanceRequest;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
@@ -45,11 +45,15 @@ class AttendanceController extends Controller
     }
     public function sync_student_attendance($request,$attendance){
         $classsection = ClassSection::find($request->classsection_id);
-        $all_students=$classsection->students->pluck("id")->toArray();
+        $all_students=$classsection->students;//->pluck("id")->toArray();
         $arr=[];
         $attendance_arr=isset($request->students)? $request->students :[];
         foreach($all_students as $std){
-            $arr[$std]["status"]=(int)in_array($std,array_keys($attendance_arr));
+            $arr[$std->id]["status"]=(int)in_array($std->id,array_keys($attendance_arr));
+            if((int)in_array($std->id,array_keys($attendance_arr))==0){
+                $content="your student ".$std->name." is Missed attendance in class section ".$classsection->subject." at ".$request->date;
+                Message::create(["teacher_id"=>auth('client')->id(),"student_id"=>$std->id,"classsection_id"=>$request->classsection_id,"content"=>$content]);
+            }
         }
         $attendance->students()->sync($arr);
     }

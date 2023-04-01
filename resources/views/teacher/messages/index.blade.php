@@ -1,33 +1,37 @@
 @extends('layouts.client')
 @section('content')
 
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('teacher.messages.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.message.title_singular') }}
+            </a>
+        </div>
+    </div>
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.homeworkSolution.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.message.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-HomeworkSolution">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Message">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.homeworkSolution.fields.id') }}
+                            {{ trans('cruds.message.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.homeworkSolution.fields.student') }}
+                            {{ trans('cruds.message.fields.student') }}
                         </th>
                         <th>
-                            {{ trans('cruds.homeworkSolution.fields.homework') }}
+                            {{ trans('cruds.message.fields.classsection') }}
                         </th>
                         <th>
-                            {{ trans('cruds.homeworkSolution.fields.created_at') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.homework.fields.title') }}
+                            {{ trans('cruds.message.fields.content') }}
                         </th>
                         <th>
                             &nbsp;
@@ -35,32 +39,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($homeworkSolutions as $key => $homeworkSolution)
-                        <tr data-entry-id="{{ $homeworkSolution->id }}">
+                    @foreach($messages as $key => $message)
+                        <tr data-entry-id="{{ $message->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $homeworkSolution->id ?? '' }}
+                                {{ $message->id ?? '' }}
+                            </td>
+                            
+                            <td>
+                                {{ $message->student->name ?? '' }}
                             </td>
                             <td>
-                                {{ $homeworkSolution->student->name ?? '' }}
+                                {{ $message->classsection->subject ?? '' }}
                             </td>
                             <td>
-                                {{ $homeworkSolution->homework->title ?? '' }}
+                                {{ $message->content ? substr($message->content, 0, 100)  :  '' }}
                             </td>
                             <td>
-                                {{ $homeworkSolution->homework->title ?? '' }}
-                            </td>
-                            <td>
-                                {{ $homeworkSolution->created_at }}
-                            </td>
-                            <td>
-                                    <a class="btn btn-xs btn-primary" href="{{ route('student.solution.show',$homeworkSolution->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('teacher.messages.show', $message->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 
-
                             </td>
 
                         </tr>
@@ -79,11 +80,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('homework_solution_delete')
+@can('message_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.homework-solutions.massDestroy') }}",
+    url: "{{ route('admin.messages.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -114,7 +115,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-HomeworkSolution:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-Message:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

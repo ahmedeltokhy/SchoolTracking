@@ -16,6 +16,7 @@ class AuthClient
      */
     public function handle(Request $request, Closure $next)
     {
+        session(['url.intended' => url()->current()]);
 		if (false == Auth::guard('client')->check()) {
             return redirect("/client/login");
         }

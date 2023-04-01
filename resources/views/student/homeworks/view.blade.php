@@ -74,6 +74,9 @@
                         <th>
                             {{ trans('cruds.homeworkSolution.fields.notes') }}
                         </th>
+                        <th>
+                            {{ trans('cruds.homeworkSolution.fields.created_at') }}
+                        </th>
                         
                         <td>
                              {{ trans('global.action') }}
@@ -89,6 +92,10 @@
                         </th>
                         <th>
                             {{ $row->notes }}
+                        </th>
+                        
+                        <th>
+                            {{ $row->created_at }}
                         </th>
                         
                         <td>

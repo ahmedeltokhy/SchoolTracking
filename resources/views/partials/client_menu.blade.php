@@ -33,11 +33,19 @@
                 </a>
             </li>
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("teacher.homeworks.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/homeworks") || request()->is("admin/homeworks/*") ? "c-active" : "" }}">
+                <a href="{{ route("teacher.homeworks.index") }}" class="c-sidebar-nav-link {{ request()->is("teacher/homeworks") || request()->is("teacher/homeworks/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-align-left c-sidebar-nav-icon">
 
                     </i>
                     {{ trans('cruds.homework.title') }}
+                </a>
+            </li>
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("teacher.messages.index") }}" class="c-sidebar-nav-link {{ request()->is("teacher/messages") || request()->is("teacher/messages/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-align-left c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.message.title') }}
                 </a>
             </li>
         @endif
@@ -64,6 +72,15 @@
                     {{ trans('cruds.homeworkSolution.title') }}
                 </a>
             </li>
+        @endif
+        @if(auth('client')->user()->type=="parent")
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route('parent.message.index') }}" class="c-sidebar-nav-link {{ request()->is("parent") || request()->is("parent/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-book c-sidebar-nav-icon"></i>
+                    {{ trans('cruds.message.title') }}
+                </a>
+            </li>
+            
         @endif
 
         <li class="c-sidebar-nav-item">

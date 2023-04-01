@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use auth;
-use App\Models\{ClassSection,Attendance,Homework};
+use App\Models\{ClassSection,Attendance,Homework,HomeworkSolution};
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Http\Requests\MassDestroyHomeworkRequest;
@@ -74,7 +74,9 @@ class HomeworkController extends Controller
     public function show(Homework $homework)
     {
         $homework->load('teacher', 'class_section');
-        return view('teacher.homeworks.show', compact('homework'));
+        // dd("ss");
+        $solutions=$homework->solutions()->orderBy("student_id")->orderByDesc("created_at")->get();
+        return view('teacher.homeworks.show', compact('homework','solutions'));
     }
 
     public function destroy(Homework $homework)
@@ -100,8 +102,11 @@ class HomeworkController extends Controller
         $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
-    // public function list_homeworks(){
-    //     $homeworks = auth('client')->user()->homeworks;
-    //     return view('teacher.homework.index', compact('homeworks'));
-    // }
+    public function show_solution($solution_id){
+        $homeworkSolution=HomeworkSolution::findOrFail($solution_id);
+        if(isset($homeworkSolution->homework->teacher->id)&& $homeworkSolution->homework->teacher->id==auth('client')->id()){
+            return view('student.homework_solutions.show', compact('homeworkSolution'));
+        }
+        abort(403, 'Access denied');
+    }
 }

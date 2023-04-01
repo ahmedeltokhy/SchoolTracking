@@ -19,7 +19,9 @@ class LoginController extends Controller
 	
 			
 			// dd("Ss");
-			return redirect()->intended(route("client.home")); 
+            return redirect(session('url.intended') ?? route('client.home'));
+
+			// return redirect()->intended(route("client.home")); 
 		}
 		else{ 
 			//dd(4);

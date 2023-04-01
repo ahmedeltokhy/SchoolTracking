@@ -59,6 +59,10 @@ class Client extends Authenticatable
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
+    public function childs()
+    {
+        return $this->HasMany(self::class, 'parent_id');
+    }
     public function classsections()
     {
         return $this->HasMany(ClassSection::class, 'teacher_id');

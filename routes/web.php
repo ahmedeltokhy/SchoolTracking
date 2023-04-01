@@ -94,6 +94,7 @@ Route::group(['namespace' => 'Client'], function () {
         Route::group(['prefix' => 'teacher', 'as' => 'teacher.','namespace' => 'Teacher', 'middleware' => ['is_teacher']], function () {
             Route::get('/list_sections','TeacherController@list_sections')->name('list_sections');
             Route::get('/section/{id}/view','TeacherController@view_section')->name('view_section');
+            Route::get('/section/{id}/list_students','TeacherController@list_students')->name('classsection.list_students');
             
             // Attendance
             Route::get('/section/{id}/take_attendance','AttendanceController@take_attendance')->name('take_attendance');
@@ -106,7 +107,11 @@ Route::group(['namespace' => 'Client'], function () {
             Route::post('homeworks/media', 'HomeworkController@storeMedia')->name('homeworks.storeMedia');
             Route::post('homeworks/ckmedia', 'HomeworkController@storeCKEditorImages')->name('homeworks.storeCKEditorImages');
             Route::resource('homeworks', 'HomeworkController'); 
+            Route::get('/homeworks/solution/{id}/show','HomeworkController@show_solution')->name('solution.show');
 
+            // Message
+            Route::delete('messages/destroy', 'MessageController@massDestroy')->name('messages.massDestroy');
+            Route::resource('messages', 'MessageController');
 
         });
         Route::group(['prefix' => 'student', 'as' => 'student.','namespace' => 'Student', 'middleware' => ['is_student']], function () {
@@ -115,6 +120,7 @@ Route::group(['namespace' => 'Client'], function () {
             Route::get('/classsection/{id}/homeworks','HomeworkController@classsection_homeworks')->name('classsection.homeworks');    
             Route::get('/homeworks/{id}/view','HomeworkController@view')->name('homeworks.show');    
             Route::get('/homeworks/index','HomeworkController@index')->name('homeworks.index');
+
 
              // Homework Solution
             Route::delete('homework-solutions/destroy', 'HomeworkSolutionController@massDestroy')->name('homework-solutions.massDestroy');
@@ -126,6 +132,11 @@ Route::group(['namespace' => 'Client'], function () {
             Route::POST('/homeworks/solution/{id}/form','HomeworkSolutionController@form')->name('solution.form');
             Route::get('/homeworks/solution/{id}/show','HomeworkSolutionController@show')->name('solution.show');
 
+        });
+        Route::group(['prefix' => 'parent', 'as' => 'parent.','namespace' => 'parent', 'middleware' => ['is_parent']], function () {
+            Route::get('/message/index','MessageController@index')->name('message.index');
+            Route::get('/message/{id}/show','MessageController@show')->name('message.show');
+            
         });
     });
     
