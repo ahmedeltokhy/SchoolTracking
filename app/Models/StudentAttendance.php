@@ -11,7 +11,7 @@ class StudentAttendance extends Model
 {
     use SoftDeletes, HasFactory;
 
-    public $table = 'student_attendances';
+    public $table = 'attendance_client';
 
     protected $dates = [
         'created_at',
