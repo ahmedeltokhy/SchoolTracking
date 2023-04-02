@@ -133,7 +133,7 @@ Route::group(['namespace' => 'Client'], function () {
             Route::get('/homeworks/solution/{id}/show','HomeworkSolutionController@show')->name('solution.show');
 
         });
-        Route::group(['prefix' => 'parent', 'as' => 'parent.','namespace' => 'parent', 'middleware' => ['is_parent']], function () {
+        Route::group(['prefix' => 'parent', 'as' => 'parent.','namespace' => 'Parent', 'middleware' => ['is_parent']], function () {
             Route::get('/message/index','MessageController@index')->name('message.index');
             Route::get('/message/{id}/show','MessageController@show')->name('message.show');
             
