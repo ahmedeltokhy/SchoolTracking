@@ -75,4 +75,8 @@ class Client extends Authenticatable
     {
         return $this->HasMany(Homework::class, 'teacher_id');
     }
+    public function buses_driver()
+    {
+        return $this->HasMany(Bus::class,"driver_id");
+    }
 }

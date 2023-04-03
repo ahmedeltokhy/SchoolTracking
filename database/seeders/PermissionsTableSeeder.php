@@ -278,6 +278,26 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 67,
                 'title' => 'profile_password_edit',
             ],
+            [
+                'id'    => 68,
+                'title' => 'check_station_create',
+            ],
+            [
+                'id'    => 69,
+                'title' => 'check_station_edit',
+            ],
+            [
+                'id'    => 70,
+                'title' => 'check_station_show',
+            ],
+            [
+                'id'    => 71,
+                'title' => 'check_station_delete',
+            ],
+            [
+                'id'    => 72,
+                'title' => 'check_station_access',
+            ],
         ];
 
         Permission::insert($permissions);

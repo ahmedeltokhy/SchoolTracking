@@ -75,9 +75,24 @@
         @endif
         @if(auth('client')->user()->type=="parent")
             <li class="c-sidebar-nav-item">
-                <a href="{{ route('parent.message.index') }}" class="c-sidebar-nav-link {{ request()->is("parent") || request()->is("parent/*") ? "c-active" : "" }}">
+                <a href="{{ route('parent.message.index') }}" class="c-sidebar-nav-link {{ request()->is("parent/message") || request()->is("parent/message/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-book c-sidebar-nav-icon"></i>
                     {{ trans('cruds.message.title') }}
+                </a>
+            </li>
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route('parent.buses.index') }}" class="c-sidebar-nav-link {{ request()->is("parent/buses") || request()->is("parent/buses/*") ? "c-active" : "" }}">
+                <i class="fa-fw fas fa-bus-alt c-sidebar-nav-icon"></i>
+                    {{ trans('cruds.bus.title') }}
+                </a>
+            </li>
+            
+        @endif
+        @if(auth('client')->user()->type=="driver")
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route('driver.buses.index') }}" class="c-sidebar-nav-link {{ request()->is("driver") || request()->is("driver/*") ? "c-active" : "" }}">
+                <i class="fa-fw fas fa-bus-alt c-sidebar-nav-icon"></i>
+                    {{ trans('cruds.bus.title') }}
                 </a>
             </li>
             

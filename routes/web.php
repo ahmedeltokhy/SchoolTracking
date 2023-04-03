@@ -68,6 +68,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Student Attendance
     Route::delete('student-attendances/destroy', 'StudentAttendanceController@massDestroy')->name('student-attendances.massDestroy');
     Route::resource('student-attendances', 'StudentAttendanceController');
+
+    // Check Station
+    Route::delete('check-stations/destroy', 'CheckStationController@massDestroy')->name('check-stations.massDestroy');
+    Route::resource('check-stations', 'CheckStationController');
 });
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -136,6 +140,14 @@ Route::group(['namespace' => 'Client'], function () {
         Route::group(['prefix' => 'parent', 'as' => 'parent.','namespace' => 'Parent', 'middleware' => ['is_parent']], function () {
             Route::get('/message/index','MessageController@index')->name('message.index');
             Route::get('/message/{id}/show','MessageController@show')->name('message.show');
+            Route::get('/buses/index','BusController@index')->name('buses.index');
+            Route::get('/buses/{id}/show','BusController@show')->name('buses.show');
+            
+        });
+        Route::group(['prefix' => 'driver', 'as' => 'driver.','namespace' => 'Driver', 'middleware' => ['is_driver']], function () {
+            Route::get('/buses/index','DriverController@index')->name('buses.index');
+            Route::get('/buses/{id}/check_station','DriverController@check_station')->name('buses.check_station');
+            Route::post('/buses/{id}/update_stations','DriverController@update_stations')->name('buses.update_stations');
             
         });
     });

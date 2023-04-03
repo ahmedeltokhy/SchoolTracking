@@ -326,5 +326,7 @@ return [
     'assign_homework'                      => ' اضافه واجب',
     'homeworks'                      => 'الواجبات',
     'add_solution'                      => ' اضافه واجب',
+    'mark_station'                      => ' اضافه علامه وصول ',
+    'track_station'                      => ' تتبع الوصول ',
 
 ];

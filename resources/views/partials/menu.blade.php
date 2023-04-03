@@ -127,6 +127,7 @@
                 </a>
             </li>
         @endcan
+        
         @can('message_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.messages.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/messages") || request()->is("admin/messages/*") ? "c-active" : "" }}">
@@ -147,7 +148,16 @@
                 </a>
             </li>
         @endcan
-        
+        @can('check_station_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.check-stations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/check-stations") || request()->is("admin/check-stations/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-allergies c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.checkStation.title') }}
+                </a>
+            </li>
+        @endcan
         @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">

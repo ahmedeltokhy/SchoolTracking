@@ -326,6 +326,8 @@ return [
     'assign_homework'                      => 'Assign Homework',
     'homeworks'                      => 'Homework',
     'add_solution'                      => 'Add solution',
+    'mark_station'                      => ' Mark Station ',
+    'track_station'                      => ' Track Station ',
 
 
 ];
