@@ -32,6 +32,11 @@ class HomeworkController extends Controller
         $data=$request->all();
         $data["teacher_id"]=auth('client')->id();
         $homework = Homework::create($data);
+        $class_section=$homework->class_section;
+        $mail_arr["subject"]=$class_section->subject;
+        $mail_arr["url"]=route('student.homeworks.show',$homework->id);
+        $students_email=$class_section->students()->pluck("email")->toArray();
+        \Mail::to($students_email)->send(new \App\Mail\HomeworkMail($mail_arr));
         foreach ($request->input('attachment', []) as $file) {
             $homework->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('attachment');
         }

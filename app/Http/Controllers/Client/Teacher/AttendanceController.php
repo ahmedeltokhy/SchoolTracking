@@ -52,7 +52,13 @@ class AttendanceController extends Controller
             $arr[$std->id]["status"]=(int)in_array($std->id,array_keys($attendance_arr));
             if((int)in_array($std->id,array_keys($attendance_arr))==0){
                 $content="your student ".$std->name." is Missed attendance in class section ".$classsection->subject." at ".$request->date;
-                Message::create(["teacher_id"=>auth('client')->id(),"student_id"=>$std->id,"classsection_id"=>$request->classsection_id,"content"=>$content]);
+                $content_ar="لقد تغيب الطالب  ".$std->name." عن حضور الصف الخاص ب ".$classsection->subject." فى يوم" .$request->date ;
+                Message::create(["teacher_id"=>auth('client')->id(),"student_id"=>$std->id,"classsection_id"=>$request->classsection_id,"content"=>$content_ar]);
+                $mail_arr["std_name"]=$std->name;
+                $mail_arr["subject"]=$classsection->subject;
+                $mail_arr["date"]=$request->date;
+                \Mail::to($std->parent->email)->send(new \App\Mail\AttendanceMail($mail_arr));
+
             }
         }
         $attendance->students()->sync($arr);
