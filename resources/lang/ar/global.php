@@ -328,5 +328,6 @@ return [
     'add_solution'                      => ' اضافه واجب',
     'mark_station'                      => ' اضافه علامه وصول ',
     'track_station'                      => ' تتبع الوصول ',
+    'list_students'                      => '  عرض الطلاب ',
 
 ];

@@ -1,6 +1,5 @@
 @extends('layouts.client')
 @section('content')
-@can('homework_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route('teacher.homeworks.create') }}">
@@ -8,7 +7,6 @@
             </a>
         </div>
     </div>
-@endcan
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.homework.title_singular') }} {{ trans('global.list') }}
